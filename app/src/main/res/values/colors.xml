@@ -6,4 +6,6 @@
     <color name="gasto_primary_variant">#FF3700B3</color>
     <color name="gasto_secondary">#FF03DAC5</color>
     <color name="gasto_secondary_variant">#FF018786</color>
+    <!-- Azul con contraste WCAG AA sobre fondos blancos -->
+    <color name="link_color">#1565C0</color>
 </resources>
