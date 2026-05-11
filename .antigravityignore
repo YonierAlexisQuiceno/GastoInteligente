@@ -1,0 +1,29 @@
+# Antigravity Ignore File for Android Project
+
+# Version Control
+.git/
+.gitignore
+
+# IDE and Editor settings
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Android/Gradle Build Artifacts
+.gradle/
+build/
+/app/build/
+/captures/
+.externalNativeBuild/
+.cxx/
+local.properties
+
+# Logs
+*.log

@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.GastoInteligente" parent="Theme.MaterialComponents.DayNight">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/gasto_primary</item>
+        <item name="colorPrimaryVariant">@color/gasto_primary_variant</item>
+        <item name="colorSecondary">@color/gasto_secondary</item>
+        <item name="colorSecondaryVariant">@color/gasto_secondary_variant</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
+    <style name="Theme.GastoInteligente" parent="Base.Theme.GastoInteligente" />
+</resources>
