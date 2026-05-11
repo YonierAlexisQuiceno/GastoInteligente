@@ -80,7 +80,27 @@
 
 ## 📸 Galería de Desarrollo
 
-Puedes encontrar más detalles visuales y el progreso del diseño en la carpeta de [Documentación de Capturas](docs/README.md).
+### Vistas de la Aplicación
+A continuación se muestran las pantallas principales implementadas con Material Design 3.
+
+<table align="center">
+  <tr>
+    <td align="center"><strong>Splash Screen</strong></td>
+    <td align="center"><strong>Ingreso (Login)</strong></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/layout-splash.png" width="300"></td>
+    <td><img src="docs/screenshots/layout-ingreso.png" width="300"></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Registro</strong></td>
+    <td align="center"><strong>Inicio (Home)</strong></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/layout-registro.png" width="300"></td>
+    <td><img src="docs/screenshots/layout-home.png" width="300"></td>
+  </tr>
+</table>
 
 ---
 
