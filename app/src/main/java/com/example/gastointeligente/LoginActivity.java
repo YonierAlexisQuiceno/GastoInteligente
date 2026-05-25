@@ -34,16 +34,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void Avanzar(View view) {
-        //Usuario: admin y mi clave: jose1234
-        String email = correo.getText() != null ? correo.getText().toString() : "";
-        String pass = clave.getText() != null ? clave.getText().toString() : "";
+        String email = correo.getText() != null ? correo.getText().toString().trim() : "";
+        String pass = clave.getText() != null ? clave.getText().toString().trim() : "";
 
+        if (email.isEmpty() || pass.isEmpty()) {
+            Toast.makeText(this, "Por favor, ingresa el correo y la contraseña", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Usuario por defecto para avanzar a la vista de Sugar ORM
         if (email.equals("admin") && pass.equals("1234")) {
             Toast.makeText(this, "Credenciales correctas", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         } else {
-            Toast.makeText(this, "Usuario y/o clave erradas", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Usuario y/o clave erradas (usa admin/1234)", Toast.LENGTH_LONG).show();
         }
     }
 }
