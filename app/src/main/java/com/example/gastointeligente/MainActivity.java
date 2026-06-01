@@ -87,65 +87,73 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Operación UPDATE (Actualizar)
-        btnActualizar.setOnClickListener(v -> {
-            String strCedula = cedula.getText().toString().trim();
-            String strNombre = nombre.getText().toString().trim();
-            String strTelefono = telefono.getText().toString().trim();
-
-            if (strCedula.isEmpty() || strNombre.isEmpty() || strTelefono.isEmpty()) {
-                Toast.makeText(this, "Todos los campos son requeridos para actualizar", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            try {
-                int intCedula = Integer.parseInt(strCedula);
-                List<Usuario> lista = Usuario.find(Usuario.class, "cedula = ?", String.valueOf(intCedula));
-
-                if (lista != null && !lista.isEmpty()) {
-                    Usuario user = lista.get(0);
-                    user.setNombre(strNombre);
-                    user.setTelefono(Integer.parseInt(strTelefono));
-                    user.save(); // Sugar ORM actualiza automáticamente si ya existe
-                    Toast.makeText(this, "Usuario actualizado exitosamente", Toast.LENGTH_SHORT).show();
-                    limpiarCampos();
-                } else {
-                    Toast.makeText(this, "No se encontró el usuario para actualizar", Toast.LENGTH_SHORT).show();
-                }
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Datos numéricos inválidos o muy largos", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Operación DELETE (Eliminar)
-        btnEliminar.setOnClickListener(v -> {
-            String strCedula = cedula.getText().toString().trim();
-            if (strCedula.isEmpty()) {
-                Toast.makeText(this, "Por favor ingresa la cédula a eliminar", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            try {
-                int intCedula = Integer.parseInt(strCedula);
-                List<Usuario> lista = Usuario.find(Usuario.class, "cedula = ?", String.valueOf(intCedula));
-
-                if (lista != null && !lista.isEmpty()) {
-                    Usuario user = lista.get(0);
-                    user.delete(); // Sugar ORM Delete
-                    Toast.makeText(this, "Usuario eliminado con éxito", Toast.LENGTH_SHORT).show();
-                    limpiarCampos();
-                } else {
-                    Toast.makeText(this, "No se encontró el usuario a eliminar", Toast.LENGTH_SHORT).show();
-                }
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Cédula inválida", Toast.LENGTH_SHORT).show();
-            }
-        });
+        // Configuración por Rol
+        String rol = getIntent().getStringExtra("ROL");
+        if (!"ADMIN".equals(rol)) {
+            btnActualizar.setVisibility(View.GONE);
+            btnEliminar.setVisibility(View.GONE);
+            btnVerAdmin.setVisibility(View.GONE);
+        }
 
         // Ir al panel de administrador
         btnVerAdmin.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, AdminActivity.class));
         });
+    }
+
+    // Operación UPDATE (Actualizar) usando onClick en XML
+    public void actualizar(View view) {
+        String strCedula = cedula.getText().toString().trim();
+        String strNombre = nombre.getText().toString().trim();
+        String strTelefono = telefono.getText().toString().trim();
+
+        if (strCedula.isEmpty() || strNombre.isEmpty() || strTelefono.isEmpty()) {
+            Toast.makeText(this, "Todos los campos son requeridos para actualizar", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            int intCedula = Integer.parseInt(strCedula);
+            List<Usuario> lista = Usuario.find(Usuario.class, "cedula = ?", String.valueOf(intCedula));
+
+            if (lista != null && !lista.isEmpty()) {
+                Usuario user = lista.get(0);
+                user.setNombre(strNombre);
+                user.setTelefono(Integer.parseInt(strTelefono));
+                user.save(); // Sugar ORM Save
+                Toast.makeText(this, "Usuario actualizado exitosamente", Toast.LENGTH_SHORT).show();
+                limpiarCampos();
+            } else {
+                Toast.makeText(this, "No se encontró el usuario para actualizar", Toast.LENGTH_SHORT).show();
+            }
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Datos numéricos inválidos o muy largos", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Operación DELETE (Eliminar) usando onClick en XML
+    public void eliminar(View view) {
+        String strCedula = cedula.getText().toString().trim();
+        if (strCedula.isEmpty()) {
+            Toast.makeText(this, "Por favor ingresa la cédula a eliminar", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            int intCedula = Integer.parseInt(strCedula);
+            List<Usuario> lista = Usuario.find(Usuario.class, "cedula = ?", String.valueOf(intCedula));
+
+            if (lista != null && !lista.isEmpty()) {
+                Usuario user = lista.get(0);
+                user.delete(); // Sugar ORM Delete
+                Toast.makeText(this, "Usuario eliminado con éxito", Toast.LENGTH_SHORT).show();
+                limpiarCampos();
+            } else {
+                Toast.makeText(this, "No se encontró el usuario a eliminar", Toast.LENGTH_SHORT).show();
+            }
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Cédula inválida", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void limpiarCampos() {

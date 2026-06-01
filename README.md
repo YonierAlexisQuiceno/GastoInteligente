@@ -52,8 +52,8 @@ app/src/main/
 ### 2. Login (`LoginActivity`)
 - Campos de correo y contraseña con componentes `TextInputEditText` de Material Design.
 - Validación de campos vacíos antes de proceder.
-- Credenciales de acceso: **admin** / **1234**.
-- Navegación al formulario principal (`MainActivity`) tras autenticación exitosa.
+- Credenciales de acceso para Administrador: **admin** / **admin**. Para usuarios regulares, cualquier otra combinación.
+- Navegación al formulario principal (`MainActivity`) tras autenticación exitosa, inyectando el Rol correspondiente (`ADMIN` o `USER`).
 - Enlace para ir a la pantalla de registro.
 - Demuestra el método del ciclo de vida `onStart()`.
 
@@ -68,8 +68,12 @@ Esta es la pantalla central del proyecto. Implementa las **4 operaciones fundame
 |---|---|---|---|
 | **Create** | Registrar | `usuario.save()` | Crea un nuevo registro en la tabla `Usuario` |
 | **Read** | Consultar | `Usuario.find()` | Busca por cédula y muestra nombre y teléfono |
-| **Update** | Actualizar | `user.setNombre()` + `user.save()` | Modifica los datos de un registro existente |
-| **Delete** | Eliminar | `user.delete()` | Borra permanentemente un registro por cédula |
+| **Update** | Actualizar | `user.setNombre()` + `user.save()` | Modifica los datos (vía `android:onClick`) |
+| **Delete** | Eliminar | `user.delete()` | Borra permanentemente (vía `android:onClick`) |
+
+**Control de Roles (Usuario vs Administrador):**
+- **Usuario Normal:** Solo puede ver los botones de Registrar y Consultar.
+- **Administrador:** Tiene acceso total a las funciones CRUD (Actualizar, Eliminar) y al panel de visualización general de la base de datos.
 
 **Manejo de errores:**  
 Todas las conversiones numéricas están protegidas con bloques `try-catch` para prevenir el crash por `NumberFormatException` (por ejemplo, cuando se digita un número telefónico que excede el límite de `int` en Java: 2,147,483,647).
@@ -129,9 +133,9 @@ implementation("com.github.satyan:sugar:1.5")
 3. Sincronizar el proyecto con Gradle (icono del elefante 🐘).
 4. Ejecutar en un emulador o dispositivo físico con **API 24+** (Android 7.0 Nougat o superior).
 
-### Credenciales de prueba
+### Credenciales de prueba (Administrador)
 - **Usuario:** `admin`
-- **Contraseña:** `1234`
+- **Contraseña:** `admin`
 
 ---
 
@@ -150,6 +154,18 @@ implementation("com.github.satyan:sugar:1.5")
 - **Logcat:** Filtrar con la etiqueta `CICLO_VIDA` para ver los eventos del ciclo de vida en la consola.
 - **App Inspection:** Usar la herramienta de Android Studio (`View` → `Tool Windows` → `App Inspection`) para inspeccionar la base de datos SQLite en tiempo real.
 - **Toast Messages:** Cada operación CRUD y cambio de estado muestra un Toast visible en pantalla.
+
+---
+
+## Interfaz Gráfica (Screenshots)
+
+![Banner](docs/screenshots/banner.png)
+
+A continuación, algunas vistas de la aplicación:
+
+| Pantalla de Login | Panel CRUD (Vista Principal) | Panel de Administrador |
+|:---:|:---:|:---:|
+| ![Login](docs/screenshots/panel%20de%20login.png) | ![Home](docs/screenshots/layout-home.png) | ![Admin](docs/screenshots/Panel%20de%20administracion.png) |
 
 ---
 

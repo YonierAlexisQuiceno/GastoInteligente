@@ -42,13 +42,18 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Usuario por defecto para avanzar a la vista de Sugar ORM
-        if (email.equals("admin") && pass.equals("1234")) {
-            Toast.makeText(this, "Credenciales correctas", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        if (email.equals("admin") && pass.equals("admin")) {
+            Toast.makeText(this, "Bienvenido Administrador", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("ROL", "ADMIN");
+            startActivity(intent);
             finish();
         } else {
-            Toast.makeText(this, "Usuario y/o clave erradas (usa admin/1234)", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Bienvenido Usuario", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("ROL", "USER");
+            startActivity(intent);
+            finish();
         }
     }
 }
